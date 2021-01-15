@@ -44,8 +44,7 @@ module.ApiConnectionsBuilder = ( function () {
 
 		centralPages.forEach(function(centralPage) {
 			pages[centralPage.title] = {
-				title: centralPage.title,
-				categories: centralPage.categories
+				title: centralPage.title
 			};
 
 			centralPage.outgoingLinks.forEach(
