@@ -12,8 +12,10 @@
 				new netw.PageBlacklist(
 					$this.data('exclude'),
 					mw.config.get('networkExcludedNamespaces'),
-					mw.config.get('networkExcludeTalkPages')
+					mw.config.get('networkExcludeTalkPages'),
+					mw.config.get('networkExcludeCategories')
 				),
+				mw.config.get('networkCategoriesShape'),
 				$this.data('options')
 			);
 

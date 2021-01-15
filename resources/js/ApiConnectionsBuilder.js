@@ -25,7 +25,7 @@ module.ApiConnectionsBuilder = ( function () {
 					outgoingLinks: page.links || [],
 					incomingLinks: page.linkshere || [],
 					externalLinks: page.extlinks || [],
-					title: page.title,
+					title: page.title
 				};
 			});
 	};
@@ -34,7 +34,7 @@ module.ApiConnectionsBuilder = ( function () {
 		return Object.values(this._buildPageMap(centralPages))
 			.map(function(page) {
 				return {
-					title: page.title,
+					title: page.title
 				};
 			});
 	};
@@ -44,7 +44,8 @@ module.ApiConnectionsBuilder = ( function () {
 
 		centralPages.forEach(function(centralPage) {
 			pages[centralPage.title] = {
-				title: centralPage.title
+				title: centralPage.title,
+				categories: centralPage.categories
 			};
 
 			centralPage.outgoingLinks.forEach(

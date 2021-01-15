@@ -8,11 +8,13 @@ module.PageBlacklist = ( function ( mw ) {
 	 * @param {string[]} blacklistedPageNames
 	 * @param {int[]} excludedNamespaces
 	 * @param {boolean} excludeTalkPages
+	 * @param {string[]} excludedCategories
 	 */
-	let PageBlacklist = function(blacklistedPageNames, excludedNamespaces, excludeTalkPages) {
+	let PageBlacklist = function(blacklistedPageNames, excludedNamespaces, excludeTalkPages, excludedCategories) {
 		this.pages = blacklistedPageNames;
 		this.namespaces = excludedNamespaces;
 		this.excludeTalk = excludeTalkPages;
+		this.categories = excludedCategories;
 	};
 
 	/**
@@ -27,7 +29,8 @@ module.PageBlacklist = ( function ( mw ) {
 
 		return title === null
 			|| (this.excludeTalk && this._isTalkPage(title))
-			|| this.namespaces.includes(title.getNamespaceId());
+			|| this.namespaces.includes(title.getNamespaceId())
+			|| this.categories.includes(title.getNamespaceId());
 	};
 
 	PageBlacklist.prototype._isTalkPage = function(title) {

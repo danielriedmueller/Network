@@ -5,13 +5,20 @@ module.Network = (function (vis, NetworkData) {
 	 * @param {string} divId
 	 * @param {module.ApiPageConnectionRepo} pageConnectionRepo
 	 * @param {module.PageBlacklist} pageBlacklist
+	 * @param {array} categoriesShape
 	 * @param {object} options
 	 */
-	let Network = function(divId, pageConnectionRepo, pageBlacklist, options) {
+	let Network = function(
+		divId,
+		pageConnectionRepo,
+		pageBlacklist,
+		categoriesShape,
+		options)
+	{
 		this._pageConnectionRepo = pageConnectionRepo;
 
 		this._options = options;
-		this._data = new NetworkData(pageBlacklist);
+		this._data = new NetworkData(pageBlacklist, categoriesShape);
 		this._network = this._newNetwork(divId);
 
 		this._bindEvents();

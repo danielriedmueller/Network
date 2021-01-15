@@ -42,9 +42,18 @@ module.ApiPageConnectionRepo = ( function ( mw, ApiConnectionsBuilder ) {
 						.filter(p => p.missing === '')
 						.map(p => p.title);
 
+					let hasCategories = Object.values(pageInfoResponse.query.pages)
+						.filter(p => p.categories !== undefined)
+						.map(p => ({title: p.title, categories: p.categories}));
+					const categories = Object.assign(...hasCategories.map(({title, categories}) => ({[title]: categories})));
+
 					connections.pages.forEach(function(page) {
 						if(missingPages.includes(page.title)) {
 							page.isMissing = true;
+						}
+
+						if(page.title in categories) {
+							page.categories = categories[page.title].map(category => category.title.split(':')[1]);
 						}
 					});
 
@@ -73,7 +82,7 @@ module.ApiPageConnectionRepo = ( function ( mw, ApiConnectionsBuilder ) {
 		return new mw.Api().get({
 			action: 'query',
 			titles: pageNodes.map(page => page.title),
-
+			prop: ['categories'],
 			format: 'json',
 			redirects: 'true'
 		});
