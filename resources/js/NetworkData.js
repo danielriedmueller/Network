@@ -16,7 +16,7 @@ module.NetworkData = ( function ( vis, mw ) {
 
 		this.nodes.update(
 			pages
-				.filter(page => me._pageTitleIsAllowed(page.title))
+				.filter(page => me._pageTitleIsAllowed(page.title) && me._pageCategoryIsAllowed(page.categories))
 				.map(function(page) {
 					let node = {
 						id: page.title,
@@ -49,6 +49,10 @@ module.NetworkData = ( function ( vis, mw ) {
 
 	NetworkData.prototype._pageTitleIsAllowed = function(pageTitle) {
 		return !this._pageBlacklist.isBlacklisted(pageTitle);
+	}
+
+	NetworkData.prototype._pageCategoryIsAllowed = function(pageCategories) {
+		return !this._pageBlacklist.hasBlacklistedCategory(pageCategories);
 	}
 
 	NetworkData.prototype.addLinks = function(links) {

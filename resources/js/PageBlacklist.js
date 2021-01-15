@@ -29,8 +29,20 @@ module.PageBlacklist = ( function ( mw ) {
 
 		return title === null
 			|| (this.excludeTalk && this._isTalkPage(title))
-			|| this.namespaces.includes(title.getNamespaceId())
-			|| this.categories.includes(title.getNamespaceId());
+			|| this.namespaces.includes(title.getNamespaceId());
+	};
+
+	/**
+	 * @param {array} pageCategories
+	 * @returns {boolean}
+	 */
+	PageBlacklist.prototype.hasBlacklistedCategory = function(pageCategories) {
+		if (!pageCategories) {
+			return false;
+		}
+
+		let intersection = this.categories.filter(x => pageCategories.includes(x));
+		return intersection.length > 0;
 	};
 
 	PageBlacklist.prototype._isTalkPage = function(title) {
