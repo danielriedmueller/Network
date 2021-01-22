@@ -138,6 +138,21 @@ These configuration settings are available:
 
 Default values of these configuration settings can be found in "extension.json". Do not change "extension.json".
 
+**$wgPageNetworkExcludeCategories**
+
+Exclude pages which belongs to certain categories.
+```php
+$wgPageNetworkExcludeCategories = ['Event'];
+```
+
+**$wgPageNetworkCategoriesShape**
+
+Change shape for each category.
+Supported shapes: "ellipse", "box", "circle", "database", "diamond", "dot", "square", "star", "text", "triangle", "triangleDown", "hexagon".
+```php
+$wgPageNetworkCategoriesShape = ['Work' => 'box', 'Person' => 'ellipse'];
+```
+
 **$wgPageNetworkOptions**
 
 Array of [vis.js options](https://visjs.github.io/vis-network/docs/network/#options). Can be (partially) overridden per network via the `options` parameter
