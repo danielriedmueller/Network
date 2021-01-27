@@ -4,11 +4,11 @@
 module.NetworkData = ( function ( vis, mw ) {
 	"use strict"
 
-	let NetworkData = function(pageBlacklist, categoriesShape) {
+	let NetworkData = function(pageBlacklist, categoriesOption) {
 		this.nodes = new vis.DataSet();
 		this.edges = new vis.DataSet();
 		this._pageBlacklist = pageBlacklist;
-		this._categoriesShape = categoriesShape;
+		this._categoriesOption = categoriesOption;
 	};
 
 	NetworkData.prototype.addPages = function(pages) {
@@ -21,12 +21,13 @@ module.NetworkData = ( function ( vis, mw ) {
 					let node = {
 						id: page.title,
 						label: page.title,
-						shape: me._getShapeByPageCategories(page.categories),
 						getUrl: function() {
 							let title = mw.Title.newFromText(page.title, page.ns);
 							return  title === null ? '' : title.getUrl();
 						}
 					}
+
+					node = Object.assign(node, me._getOptionsByPageCategories(page.categories));
 
 					if (page.isMissing) {
 						node.color = {
@@ -98,22 +99,25 @@ module.NetworkData = ( function ( vis, mw ) {
 	 * @returns {string}
 	 * @private
 	 */
-	NetworkData.prototype._getShapeByPageCategories = function(pageCategories) {
-		let shape = '';
+	NetworkData.prototype._getOptionsByPageCategories = function(pageCategories) {
+		let options = '';
 
 		if (!pageCategories) {
-			return shape;
+			return options;
 		}
 
-		const categoriesShape = this._categoriesShape;
+		const categoriesOption = this._categoriesOption;
+
 		pageCategories.some(category => {
-			if (category in categoriesShape) {
-				shape = categoriesShape[category];
+			if (category in categoriesOption) {
+				options = categoriesOption[category];
+
+				// Take first found category options and break loop.
 				return true;
 			}
 		});
 
-		return shape;
+		return options;
 	}
 
 	return NetworkData;

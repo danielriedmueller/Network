@@ -31,7 +31,7 @@ class NetworkFunction {
 		$parser->getOutput()->addJsConfigVars( 'networkExcludedNamespaces', $GLOBALS['wgPageNetworkExcludedNamespaces'] );
 		$parser->getOutput()->addJsConfigVars( 'networkExcludeTalkPages', $GLOBALS['wgPageNetworkExcludeTalkPages'] );
         $parser->getOutput()->addJsConfigVars( 'networkExcludeCategories', $GLOBALS['wgPageNetworkExcludeCategories'] );
-        $parser->getOutput()->addJsConfigVars( 'networkCategoriesShape', $GLOBALS['wgPageNetworkCategoriesShape'] );
+        $parser->getOutput()->addJsConfigVars( 'networkCategoriesOption', $GLOBALS['wgPageNetworkCategoriesOption'] );
 
 		$requestModel = new RequestModel();
 		$requestModel->functionArguments = $arguments;

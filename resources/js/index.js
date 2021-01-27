@@ -15,7 +15,7 @@
 					mw.config.get('networkExcludeTalkPages'),
 					mw.config.get('networkExcludeCategories')
 				),
-				mw.config.get('networkCategoriesShape'),
+				mw.config.get('networkCategoriesOption'),
 				$this.data('options')
 			);
 

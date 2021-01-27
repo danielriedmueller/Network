@@ -145,12 +145,18 @@ Exclude pages which belongs to certain categories.
 $wgPageNetworkExcludeCategories = ['Event'];
 ```
 
-**$wgPageNetworkCategoriesShape**
+**$wgPageNetworkCategoriesOption**
 
-Change shape for each category.
-Supported shapes: "ellipse", "box", "circle", "database", "diamond", "dot", "square", "star", "text", "triangle", "triangleDown", "hexagon".
+Change options for each category.
+E.g. supported shapes: "ellipse", "box", "circle", "database", "diamond", "dot", "square", "star", "text", "triangle", "triangleDown", "hexagon".
 ```php
-$wgPageNetworkCategoriesShape = ['Work' => 'box', 'Person' => 'ellipse'];
+$wgPageNetworkCategoriesOption = [
+    'Work' => [
+        'shape' => 'box',
+        'color' => '#fff'
+    ],
+    'Person' => ['shape' => 'ellipse']
+];
 ```
 
 **$wgPageNetworkOptions**
