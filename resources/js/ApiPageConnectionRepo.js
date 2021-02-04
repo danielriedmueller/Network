@@ -38,6 +38,7 @@ module.ApiPageConnectionRepo = ( function ( mw, ApiConnectionsBuilder ) {
 				let connections = (new ApiConnectionsBuilder()).connectionsFromApiResponses(linkQueryResponse)
 
 				this._queryPageNodeInfo(connections.pages).done(function(pageInfoResponse) {
+
 					let missingPages = Object.values(pageInfoResponse.query.pages)
 						.filter(p => p.missing === '')
 						.map(p => p.title);
@@ -47,6 +48,11 @@ module.ApiPageConnectionRepo = ( function ( mw, ApiConnectionsBuilder ) {
 						.map(p => ({title: p.title, categories: p.categories}));
 					const categories = Object.assign(...hasCategories.map(({title, categories}) => ({[title]: categories})));
 
+					let displaytitle = Object.values(pageInfoResponse.query.pages)
+						.filter(p => p.displaytitle !== undefined)
+						.map(p => ({title: p.title, displaytitle: p.displaytitle}));
+					const displaytitles = Object.assign(...displaytitle.map(({title, displaytitle}) => ({[title]: displaytitle})));
+
 					connections.pages.forEach(function(page) {
 						if(missingPages.includes(page.title)) {
 							page.isMissing = true;
@@ -55,6 +61,8 @@ module.ApiPageConnectionRepo = ( function ( mw, ApiConnectionsBuilder ) {
 						if(page.title in categories) {
 							page.categories = categories[page.title].map(category => category.title.split(':')[1]);
 						}
+
+						page.displaytitle  = displaytitles[page.title];
 					});
 
 					resolve(connections);
@@ -82,7 +90,8 @@ module.ApiPageConnectionRepo = ( function ( mw, ApiConnectionsBuilder ) {
 		return new mw.Api().get({
 			action: 'query',
 			titles: pageNodes.map(page => page.title),
-			prop: ['categories'],
+			prop: ['categories', 'info'],
+			inprop: 'displaytitle',
 			format: 'json',
 			redirects: 'true'
 		});

@@ -8,8 +8,6 @@ module.ApiConnectionsBuilder = ( function () {
 	};
 
 	ApiConnectionsBuilder.prototype.connectionsFromApiResponses = function(apiResponse) {
-		// console.log(JSON.stringify(apiResponse, null, 4));
-
 		let centralPages = this._centralPagesFromApiResponse(apiResponse);
 
 		return {
@@ -17,10 +15,11 @@ module.ApiConnectionsBuilder = ( function () {
 			links: this._buildLinksList(centralPages)
 		};
 	}
-
+	//Todo: Empty Array outgoingLinks: page.links || [],
 	ApiConnectionsBuilder.prototype._centralPagesFromApiResponse = function(apiResponse) {
 		return Object.values(apiResponse.query.pages)
 			.map(function(page) {
+				console.log(page)
 				return {
 					outgoingLinks: page.links || [],
 					incomingLinks: page.linkshere || [],
